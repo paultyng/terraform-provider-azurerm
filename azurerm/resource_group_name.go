@@ -29,8 +29,9 @@ func resourceGroupNameDiffSuppressSchema() *schema.Schema {
 
 func resourceGroupNameForDataSourceSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeString,
-		Required: true,
+		Description: "The Name of the Resource Group for this resource.",
+		Type:        schema.TypeString,
+		Required:    true,
 	}
 }
 
