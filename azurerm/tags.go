@@ -29,8 +29,9 @@ func tagsForceNewSchema() *schema.Schema {
 
 func tagsForDataSourceSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeMap,
-		Computed: true,
+		Description: "A mapping of tags assigned to the resource.",
+		Type:        schema.TypeMap,
+		Computed:    true,
 	}
 }
 

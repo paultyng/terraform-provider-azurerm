@@ -18,8 +18,9 @@ func locationSchema() *schema.Schema {
 
 func locationForDataSourceSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeString,
-		Computed: true,
+		Description: "The Azure Location for this resource.",
+		Type:        schema.TypeString,
+		Computed:    true,
 	}
 }
 

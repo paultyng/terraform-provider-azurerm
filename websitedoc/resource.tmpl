@@ -1,0 +1,55 @@
+---
+layout: "azurerm"
+page_title: "Azure Resource Manager: {{ .Name }}"
+sidebar_current: "docs-azurerm-{{ .Type }}-{{ .NameSuffix }}"
+description: |-
+  {{ if .ShortDescription }}{{ .ShortDescription }}{{ else }}{{ .Description }}{{ end }}
+
+---
+
+# Data Source: {{ .Name }}
+
+{{ .Description }}
+
+## Argument Reference
+
+{{ define "descriptionText" }}
+  {{- if len .Attributes -}}
+    a collection of `{{ .Name }}` blocks as defined below.
+  {{- else -}}
+  {{- .Description -}}
+  {{- end -}}
+{{ end }}
+
+{{ range .Attributes -}}
+{{- if or .Required .Optional -}}
+  * `{{ .Name }}` -{{ " " -}}
+  {{- if .Required -}}
+    (Required){{ " " -}} 
+  {{- else if .Optional -}}
+    (Optional){{ " " -}}
+  {{- end -}}
+  {{- template "descriptionText" . -}}
+  {{ "\n" }}
+{{- end -}}
+{{- end }}
+
+## Attributes Reference
+{{- define "attributesList" -}}
+  {{- range .Attributes -}}
+  {{- if .Computed -}}
+    * `{{ .Name }}` - {{ template "descriptionText" . }}{{ "\n" }}
+  {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{ "\n" }}
+{{ template "attributesList" . }}
+
+{{ range .Attributes -}}
+{{- if len .Attributes }}
+`{{ .Name }}` supports the following:
+
+{{ template "attributesList" . }}
+{{- end -}}
+{{- end }}

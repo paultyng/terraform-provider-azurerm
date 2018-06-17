@@ -12,12 +12,15 @@ import (
 	"github.com/terraform-providers/terraform-provider-azurerm/azurerm/utils"
 )
 
+// dataSourceArmImage returns the azurerm_image data source
+//
+// Use this data source to access information about an Image.
 func dataSourceArmImage() *schema.Resource {
 	return &schema.Resource{
 		Read: dataSourceArmImageRead,
 		Schema: map[string]*schema.Schema{
-
 			"name_regex": {
+				Description:   "Regex pattern of the image to match.",
 				Type:          schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
@@ -25,20 +28,20 @@ func dataSourceArmImage() *schema.Resource {
 				ConflictsWith: []string{"name"},
 			},
 			"sort_descending": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
+				Description: "By default when matching by regex, images are sorted by name in ascending order and the first match is chosen, to sort descending, set this flag.",
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Default:     false,
 			},
-
 			"name": {
+				Description:   "The name of the Image.",
 				Type:          schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"name_regex"},
 			},
 
 			"resource_group_name": resourceGroupNameForDataSourceSchema(),
-
-			"location": locationForDataSourceSchema(),
+			"location":            locationForDataSourceSchema(),
 
 			"os_disk": {
 				Type:     schema.TypeList,
@@ -46,28 +49,34 @@ func dataSourceArmImage() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"blob_uri": {
-							Type:     schema.TypeString,
-							Computed: true,
+							Description: "The URI in Azure storage of the blob used to create the image.",
+							Type:        schema.TypeString,
+							Computed:    true,
 						},
 						"caching": {
-							Type:     schema.TypeString,
-							Computed: true,
+							Description: "The caching mode for the OS Disk, such as `ReadWrite`, `ReadOnly`, or `None`.",
+							Type:        schema.TypeString,
+							Computed:    true,
 						},
 						"managed_disk_id": {
-							Type:     schema.TypeString,
-							Computed: true,
+							Description: "The ID of the Managed Disk used as the OS Disk Image.",
+							Type:        schema.TypeString,
+							Computed:    true,
 						},
 						"os_state": {
-							Type:     schema.TypeString,
-							Computed: true,
+							Description: "The State of the OS used in the Image, such as `Generalized`.",
+							Type:        schema.TypeString,
+							Computed:    true,
 						},
 						"os_type": {
-							Type:     schema.TypeString,
-							Computed: true,
+							Description: "The type of Operating System used on the OS Disk. such as `Linux` or `Windows`.",
+							Type:        schema.TypeString,
+							Computed:    true,
 						},
 						"size_gb": {
-							Type:     schema.TypeInt,
-							Computed: true,
+							Description: "The size of the OS Disk in GB.",
+							Type:        schema.TypeInt,
+							Computed:    true,
 						},
 					},
 				},
@@ -79,24 +88,29 @@ func dataSourceArmImage() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"blob_uri": {
-							Type:     schema.TypeString,
-							Computed: true,
+							Description: "The URI in Azure storage of the blob used to create the image.",
+							Type:        schema.TypeString,
+							Computed:    true,
 						},
 						"caching": {
-							Type:     schema.TypeString,
-							Computed: true,
+							Description: "The caching mode for the Data Disk, such as `ReadWrite`, `ReadOnly`, or `None`.",
+							Type:        schema.TypeString,
+							Computed:    true,
 						},
 						"lun": {
-							Type:     schema.TypeInt,
-							Computed: true,
+							Description: "The logical unit number of the data disk.",
+							Type:        schema.TypeInt,
+							Computed:    true,
 						},
 						"managed_disk_id": {
-							Type:     schema.TypeString,
-							Computed: true,
+							Description: "The ID of the Managed Disk used as the Data Disk Image.",
+							Type:        schema.TypeString,
+							Computed:    true,
 						},
 						"size_gb": {
-							Type:     schema.TypeInt,
-							Computed: true,
+							Description: "The size of this Data Disk in GB.",
+							Type:        schema.TypeInt,
+							Computed:    true,
 						},
 					},
 				},
